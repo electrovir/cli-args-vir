@@ -1,5 +1,30 @@
 import {basename} from 'path';
 
+/** Input for extractRelevantArgs. */
+export type RelevantArgsInput = {
+    /** Raw arguments passed to the CLI. Typically this will simply be process.argv. */
+    rawArgs: ReadonlyArray<string>;
+    /**
+     * Executable bin name for your script. This should be the "bin" name in your package.json, or
+     * simply your package name if you have no custom bin name defined.
+     *
+     * See https://docs.npmjs.com/cli/v10/configuring-npm/package-json#bin for details on the bin
+     * field of package.json
+     */
+    binName: string | undefined;
+    /**
+     * The name or path of your script file that will be executed via the CLI. This should almost
+     * always simply be __filename or its ESM equivalent
+     * (https://stackoverflow.com/questions/46745014).
+     */
+    fileName: string;
+    /**
+     * If set to true, this function with throw an error if the given file or bin name was not found
+     * in the given arguments list.
+     */
+    errorIfNotFound?: boolean | undefined;
+};
+
 /**
  * Trims arguments list to remove all arguments that take place before the script's file name or
  * executable bin name.
@@ -23,29 +48,7 @@ export function extractRelevantArgs({
     binName,
     fileName,
     errorIfNotFound,
-}: Readonly<{
-    /** Raw arguments passed to the CLI. Typically this will simply be process.argv. */
-    rawArgs: ReadonlyArray<string>;
-    /**
-     * Executable bin name for your script. This should be the "bin" name in your package.json, or
-     * simply your package name if you have no custom bin name defined.
-     *
-     * See https://docs.npmjs.com/cli/v10/configuring-npm/package-json#bin for details on the bin
-     * field of package.json
-     */
-    binName: string | undefined;
-    /**
-     * The name or path of your script file that will be executed via the CLI. This should almost
-     * always simply be __filename or its ESM equivalent
-     * (https://stackoverflow.com/questions/46745014).
-     */
-    fileName: string;
-    /**
-     * If set to true, this function with throw an error if the given file or bin name was not found
-     * in the given arguments list.
-     */
-    errorIfNotFound?: boolean | undefined;
-}>): string[] {
+}: Readonly<RelevantArgsInput>): string[] {
     const baseFileName = basename(fileName);
 
     if (!baseFileName) {

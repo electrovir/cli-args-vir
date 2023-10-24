@@ -1,6 +1,6 @@
 {
     "name": "cli-args-vir",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "Yet another cli args extraction tool (for Node.js).",
     "keywords": [
         "cli",

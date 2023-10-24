@@ -1,1 +1,1 @@
-export {extractRelevantArgs} from './relevant-args';
+export * from './relevant-args';
