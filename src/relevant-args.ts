@@ -1,4 +1,4 @@
-import {basename} from 'path';
+import {basename} from 'node:path';
 
 /** Input for extractRelevantArgs. */
 export type RelevantArgsInput = {
@@ -30,18 +30,21 @@ export type RelevantArgsInput = {
  * executable bin name.
  *
  * @example
- *     extractRelevantArgs({
- *         rawArgs: [
- *             'npx',
- *             'ts-node',
- *             './my-script.ts',
- *             'arg1',
- *             '--arg2',
- *         ], // typically will be process.argv
- *         binName: 'my-script', // should be your package.json "bin" property name, can be undefined
- *         fileName: 'my-script.ts', // should be __filename from the script that will be executed
- *     });
- *     // will output ['arg1', '--arg2']
+ *
+ * ```ts
+ * extractRelevantArgs({
+ *     rawArgs: [
+ *         'npx',
+ *         'ts-node',
+ *         './my-script.ts',
+ *         'arg1',
+ *         '--arg2',
+ *     ], // typically will be process.argv
+ *     binName: 'my-script', // should be your package.json "bin" property name, can be undefined
+ *     fileName: 'my-script.ts', // should be __filename from the script that will be executed
+ * });
+ * // will output ['arg1', '--arg2']
+ * ```
  */
 export function extractRelevantArgs({
     rawArgs,

@@ -1,1 +1,1 @@
-export * from './relevant-args';
+export * from './relevant-args.js';

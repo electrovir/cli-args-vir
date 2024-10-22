@@ -1,5 +1,5 @@
-import {itCases} from '@augment-vir/chai';
-import {extractRelevantArgs} from './relevant-args';
+import {describe, itCases} from '@augment-vir/test';
+import {extractRelevantArgs} from './relevant-args.js';
 
 describe(extractRelevantArgs.name, () => {
     itCases(extractRelevantArgs, [
@@ -37,7 +37,9 @@ describe(extractRelevantArgs.name, () => {
                     'more-value',
                 ],
             },
-            throws: 'no base file name',
+            throws: {
+                matchMessage: 'no base file name',
+            },
         },
         {
             it: 'extracts args from matched bin name',
@@ -97,7 +99,9 @@ describe(extractRelevantArgs.name, () => {
                 ],
                 errorIfNotFound: true,
             },
-            throws: 'Failed to find position of file or bin name in provided args list.',
+            throws: {
+                matchMessage: 'Failed to find position of file or bin name in provided args list.',
+            },
         },
         {
             it: 'ignores bin name if not provided',
